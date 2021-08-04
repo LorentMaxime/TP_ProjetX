@@ -2,39 +2,49 @@
 
 namespace App\Controller;
 
+use App\Entity\Personne;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+   * @Route("/personne")
+   */
 class PersonneController extends AbstractController
 {
 
-   /**
-    * @Route("/", name="home")
-    */
-    public function home():Response
-    {
-        //$route = new Route()
-        return $this->render("personne/home.html.twig");
-    } 
+  /**
+   * @Route("/ajouter", name="pesonne_ajouter")
+   */
+public function ajouter(EntityManagerInterface $em):Response
+{
+    // dd = dump die
+    // dunmp() // le var_dump de symfony
+      //dd('Ajouter personne !');
 
-      /**
-    * @Route("/contact", name="contact")
-    */
-    public function contact():Response
-    {
-        //$route = new Route()
-        return $this->render("personne/contact.html.twig");
-    } 
+      $personne = new Personne();
+    // On hydrate !!!  
+    $personne->setPrenom('Jean');
+    $personne->setNom('DUJARDIN');
+    // persister
+    $em->persist($personne);
 
-      /**
-    * @Route("/about-us", name="about")
-    */
-    public function about():Response
-    {
-        //$route = new Route()
-        return $this->render("personne/about.html.twig");
-    } 
+    // flush
+    $em->flush();
+    return $this->json($personne);
+}
 
+/**
+   * @Route("/enlever/{id}", name="pesonne_ajouter")
+   */
+public function effacer(Personne $personne, EntityManagerInterface $em):Response
+{
+    // pas besoin de persister
+    $em->remove($personne);
+    $em->flush();
+    return $this->json($personne);
+}
 
 }
