@@ -34,7 +34,7 @@ class FrontController extends AbstractController
     public function about():Response
     {
         //$route = new Route()
-        return $this->render("font/about.html.twig");
+        return $this->render("front/about.html.twig");
     } 
 
 

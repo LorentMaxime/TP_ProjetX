@@ -1,0 +1,22 @@
+{% extends 'back.html.twig' %}
+
+
+{% block titre %} Ajouter Personne - {{ parent() }} {% endblock %}
+
+
+{% block central %}
+
+<h1>Ajouter une personne</h1>
+<div class="col-3">
+    {{ form_start(formPersonne) }}
+    {# <form action =" ... "  method=" ... "> #}
+
+    {{ form_widget(formPersonne) }}
+    {# label + input #}
+
+    <button class="btn btn-primary" type="submit">Ajouter</button>
+
+    {{ form_end(formPersonne) }}
+    {# </form> #}
+</div>
+{% endblock %}
