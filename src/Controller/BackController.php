@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
-   * @Route("/personne")
+   * @Route("/admin/personne")
    */
-class PersonneController extends AbstractController
+class BackController extends AbstractController
 {
 
   /**
@@ -51,12 +51,12 @@ public function effacer(Personne $personne, EntityManagerInterface $em):Response
 }
 
 /**
-   * @Route("/liste", name="personne_liste")
+   * @Route("/", name="personne_liste")
    */
   public function liste(PersonneRepository $repo):Response
   {
       $personnes = $repo->findAll();
-      return $this->json($personnes);
+      return $this->render("back/liste.html.twig",['personnes'=>$personnes]);
   }
 
 }

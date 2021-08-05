@@ -15,19 +15,13 @@
                 <tbody>
                     {% for p in personnes %}
                     <tr>
-                        <td>{{ p.id }}</td>
-                        <td>{{ p.prenom }} {{ p.nom }}</td>
-                        <td>
                         
-                        </td>
-                        <td>
-                        <a href="{{ path('personne_enlever',{id:p.id}) }}" class="btn btn-danger">supprimer</a>
-                        </td>
+                        <td>{{ p.prenom }} {{ p.nom }}</td>
+   
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ path('personne_ajouter') }}" class="btn btn-success">ajouter</a>
         </div>    
     </div>
     

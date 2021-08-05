@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MainController extends AbstractController
+class FrontController extends AbstractController
 {
 
    /**
@@ -16,7 +16,7 @@ class MainController extends AbstractController
     public function home(PersonneRepository $repo):Response
     {
         $personnes = $repo->findAll(); 
-        return $this->render("personne/home.html.twig",['personnes'=>$personnes]);
+        return $this->render("front/home.html.twig",['personnes'=>$personnes]);
     } 
 
       /**
@@ -25,7 +25,7 @@ class MainController extends AbstractController
     public function contact():Response
     {
         //$route = new Route()
-        return $this->render("personne/contact.html.twig");
+        return $this->render("front/contact.html.twig");
     } 
 
       /**
@@ -34,7 +34,7 @@ class MainController extends AbstractController
     public function about():Response
     {
         //$route = new Route()
-        return $this->render("personne/about.html.twig");
+        return $this->render("font/about.html.twig");
     } 
 
 
