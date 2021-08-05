@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Personne;
+use App\Repository\PersonneRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ class PersonneController extends AbstractController
 {
 
   /**
-   * @Route("/ajouter", name="pesonne_ajouter")
+   * @Route("/ajouter", name="personne_ajouter")
    */
 public function ajouter(EntityManagerInterface $em):Response
 {
@@ -33,18 +34,29 @@ public function ajouter(EntityManagerInterface $em):Response
 
     // flush
     $em->flush();
-    return $this->json($personne);
+    //return $this->json($personne);
+    return $this->redirectToRoute('home');
 }
 
 /**
-   * @Route("/enlever/{id}", name="pesonne_ajouter")
+   * @Route("/enlever/{id}", name="personne_enlever")
    */
 public function effacer(Personne $personne, EntityManagerInterface $em):Response
 {
     // pas besoin de persister
     $em->remove($personne);
     $em->flush();
-    return $this->json($personne);
+    //return $this->json($personne);
+    return $this->redirectToRoute('home');
 }
+
+/**
+   * @Route("/liste", name="personne_liste")
+   */
+  public function liste(PersonneRepository $repo):Response
+  {
+      $personnes = $repo->findAll();
+      return $this->json($personnes);
+  }
 
 }

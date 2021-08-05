@@ -6,5 +6,29 @@
 {# avec parent je recupere le contenu du bloc parent #}
 
 {% block central %}
-<h1>Home</h1>
+
+    <h1>Home</h1>
+    <div class="row">
+        <div class="offset-3 col-6">
+        
+            <table class="table table-striped">
+                <tbody>
+                    {% for p in personnes %}
+                    <tr>
+                        <td>{{ p.id }}</td>
+                        <td>{{ p.prenom }} {{ p.nom }}</td>
+                        <td>
+                        
+                        </td>
+                        <td>
+                        <a href="{{ path('personne_enlever',{id:p.id}) }}" class="btn btn-danger">supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ path('personne_ajouter') }}" class="btn btn-success">ajouter</a>
+        </div>    
+    </div>
+    
 {% endblock %}
