@@ -1,0 +1,37 @@
+{% extends 'back.html.twig' %}
+
+
+{% block titre %} Lieu |{{ parent() }} {% endblock %}
+
+
+{% block central %}
+
+    <h1>Gestion des lieux</h1>
+
+     <div class="row">
+        <div class="offset-3 col-10">
+        
+            <table class="table table-striped">
+                <tbody>
+                    {% for l in lieu %}
+                    <tr>
+                        <td>{{ l.id }}</td>
+                        <td>{{ l.nom }}</td>
+                        <td>{{ l.adresse }}</td>
+                        <td>{{ l.cp }}</td>
+                        <td>{{ l.ville }}</td>
+                        <td>{{ l.description }}</td>
+                        <td>{{ l.author }}</td>
+                        <td>{{ l.dateCreated|date('d-m-Y - H:i:s') }}</td>
+                        <td>
+                        {# <a href="{{ path('lieu_enlever',{id:l.id}) }}" class="btn btn-danger">supprimer</a> #}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ path('lieu_ajouter') }}" class="btn btn-success">ajouter</a>
+        </div>    
+    </div>
+
+{% endblock %}

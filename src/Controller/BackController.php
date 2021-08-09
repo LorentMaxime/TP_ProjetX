@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Personne;
+use App\Form\LieuType;
 use App\Form\PersonneType;
+use App\Repository\LieuRepository;
 use App\Repository\PersonneRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,7 +46,7 @@ public function ajouter(EntityManagerInterface $em, Request $request):Response
   [ 'formPersonne'=>$formPersonne->createView()]);
 
 
-  /*
+  /* Ceci a été codé au commencement, les infos etant integrées en dur avant creation formulaire
     // dd = dump die
     // dunmp() // le var_dump de symfony
       //dd('Ajouter personne !');
@@ -62,6 +65,7 @@ public function ajouter(EntityManagerInterface $em, Request $request):Response
     */
 }
 
+/* ------------------------------------------------------------------------------------*/
 /**
    * @Route("/personne/enlever/{id}", name="personne_enlever")
    */
@@ -74,6 +78,7 @@ public function effacer(Personne $personne, EntityManagerInterface $em):Response
     return $this->redirectToRoute('home');
 }
 
+/* -------------------------------------------------------------------------------------*/
 /**
    * @Route("/", name="personne_liste")
    */
@@ -83,4 +88,40 @@ public function effacer(Personne $personne, EntityManagerInterface $em):Response
       return $this->render("back/liste.html.twig",['personnes'=>$personnes]);
   }
 
+  /* ------------------------------------------------------------------------------------*/
+/**
+ * @Route("/lieu", name="lieu_liste")
+ */
+  public function lieu(LieuRepository $repo):Response
+  {
+      $lieu = $repo->findAll();
+      return $this->render("back/lieu.html.twig",
+    ['lieu'=>$lieu]);
+  }
+
+/*------------------------------------------------------------------------------------------*/
+/**
+ * @Route("/lieu/ajouter", name="lieu_ajouter")
+ */
+  public function ajouterLieu(EntityManagerInterface $em, Request $request):Response
+  {
+    $lieu = new Lieu(); // je crée une Entity "vide"
+    // je crée mon formulaire (type de formulaire + entity)
+    $formLieu = $this->createForm(LieuType::class, $lieu);
+    // associer le formulaire avec les données envoyées
+    // hydrater $personne
+    $formLieu->handleRequest($request);
+
+    if($formLieu->isSubmitted() && $formLieu->isValid())
+      {
+        $lieu->setImage('null');
+        $em->persist($lieu);
+        $em->flush();
+        return $this->redirectToRoute('personne_liste');
+      }
+      
+    return $this->render('back/ajouterLieu.html.twig', 
+    [ 'formLieu' => $formLieu->createView()]); 
+
+    }
 }
