@@ -18,16 +18,15 @@
             <a class="navbar-brand" href="{{ path('home') }}">ProjetX</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               
-               {% set chemin = app.request.get('_route')  %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">              
+            {% set chemin = app.request.get('_route')  %}
                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {% if chemin  == 'personne_liste' %}active{% endif %}"  aria-current="accueil" href="{{path('personne_liste')}}">Gestion Invités</a></li>
                     <li class="nav-item">
                         <a class="nav-link {% if chemin  == 'lieu_liste' %}active{% endif %}" href="{{path('lieu_liste')}}">Gestion Lieux</a></li>
                 </ul>
-            </div>
+        </div>
 
             <h3><span class="ms-4 badge bg-danger">Back Office</span></h3>
         </div>
